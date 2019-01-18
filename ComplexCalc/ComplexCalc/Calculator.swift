@@ -27,8 +27,11 @@ class Calculator {
         return value
     }
     
-    func add(lhs: ([String: Int], [String: Int]), rhs: ([String: Int], [String: Int])) -> ([String: Int], [String: Int]){
-        return (["x": lhs["x"] + rhs["x"]], ["y": lhs["y"] + rhs["y"]])
+    func add(lhs: [String : Int], rhs: [String : Int]) -> ([String : Int]){
+        var dict = [String: Int]()
+        dict["x"] = lhs["x"]! + rhs["x"]!
+        dict["y"] = lhs["y"]! + rhs["y"]!
+        return dict
     }
     
     func subtract (lhs: Int, rhs: Int) -> Int{
@@ -37,6 +40,13 @@ class Calculator {
     
     func subtract(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int){
         return (lhs.0 - rhs.0, lhs.1 - rhs.1)
+    }
+    
+    func subtract(lhs: [String : Int], rhs: [String : Int]) -> ([String : Int]){
+        var dict = [String: Int]()
+        dict["x"] = lhs["x"]! - rhs["x"]!
+        dict["y"] = lhs["y"]! - rhs["y"]!
+        return dict
     }
     
     func multiply (lhs: Int, rhs: Int) -> Int{
@@ -75,5 +85,15 @@ class Calculator {
         return total / args.count
     }
     
+    func mathOp(lhs: Int, rhs: Int, op: (Int, Int) -> Int) -> Int {
+        return op(lhs, rhs)
+    }
     
+    func mathOp(args: [Int], beg: Int, op: (Int, Int) -> Int) -> Int {
+        var total = beg
+        for i in 0...args.count-1 {
+            total = op(total, args[i])
+        }
+        return total
+    }
 }
